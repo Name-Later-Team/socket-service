@@ -137,3 +137,5 @@ uploads/avatar*
 
 # swap file
 *.swp
+
+.npmrc
