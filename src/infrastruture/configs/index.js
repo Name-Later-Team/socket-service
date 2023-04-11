@@ -19,4 +19,22 @@ export const APP_CONFIG = {
             credential: Boolean(process.env.SOCKET_CREDENTIAL).valueOf(),
         },
     },
+
+    authz: {
+        baseUrl: process.env.AUTHZ_URL,
+        endpoints: {
+            userinfo: process.env.AUTHZ_ENDPOINT_USERINFO,
+        },
+    },
+};
+
+export const SERVICE_CONFIG_FACTORY = {
+    presenti: {
+        clientId: process.env.PRESENTI_CLIENT_ID,
+        rsaPublicKey: process.env.PRESENTI_PUBLIC_KEY,
+    },
+    presento: {
+        clientId: process.env.PRESENTO_CLIENT_ID,
+        rsaPublicKey: process.env.PRESENTO_PUBLIC_KEY,
+    },
 };
