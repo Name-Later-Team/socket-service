@@ -20,7 +20,7 @@ export function introspectionMiddleware() {
             const token = tokenScheme.split(" ")[1];
 
             if (!tokenScheme || !tokenScheme.trim() || !token || !token.trim()) {
-                throw new UnauthorizedException("Token is missing or invalid", RESPONSE_CODE.MISSING_TOKEN);
+                throw new UnauthorizedException("Token is missing or invalid", RESPONSE_CODE.missingToken);
             }
 
             // call Casdoor userinfo endpoint to check token expiration
@@ -35,7 +35,7 @@ export function introspectionMiddleware() {
 
                 // token expired
                 if (data.status && data.status === "error") {
-                    throw new UnauthorizedException("Token is missing or invalid", RESPONSE_CODE.MISSING_TOKEN);
+                    throw new UnauthorizedException("Token is missing or invalid", RESPONSE_CODE.missingToken);
                 }
 
                 Logger.info("--------- Introspection Middleware - Passed");
