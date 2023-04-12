@@ -24,7 +24,7 @@ export const createTicketHeaderSchema = Joi.object({
  * @param {import("express").Request} req
  * @param {import("express").Response} res
  */
-export async function generateAuthenticationTicket(req, res) {
+export async function generateAuthenticationTicketAsync(req, res) {
     // generate ticket randomly by using nodejs crypto
     const randomBuffer = crypto.randomBytes(TICKET_CONST.codeLength);
     const ticket = randomBuffer.toString("hex");
