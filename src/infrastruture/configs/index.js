@@ -26,6 +26,11 @@ export const APP_CONFIG = {
             userinfo: process.env.AUTHZ_ENDPOINT_USERINFO,
         },
     },
+
+    redis: {
+        host: process.env.REDIS_HOST,
+        port: process.env.REDIS_PORT ? +process.env.REDIS_PORT : 6378,
+    },
 };
 
 export const SERVICE_CONFIG_FACTORY = {
