@@ -5,7 +5,8 @@ import { Logger } from "../../common/utils/logger.js";
 const clients = {};
 
 function initRedisConnectionAsync() {
-    const redisClient = createClient({ url: `redis://${APP_CONFIG.redis.host}:${APP_CONFIG.redis.port}` });
+    const url = `redis://${APP_CONFIG.redis.host}:${APP_CONFIG.redis.port}`;
+    const redisClient = createClient({ url });
 
     redisClient.connect();
 

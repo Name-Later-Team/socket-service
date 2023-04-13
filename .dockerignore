@@ -1,0 +1,6 @@
+.env
+.env.production
+.env.template
+node_modules
+.prettierrc
+.prettierignore
