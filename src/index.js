@@ -9,10 +9,9 @@ import { errorHandler } from "./common/middlewares/error.handler.js";
 import { rawBodyMiddleware } from "./common/middlewares/raw-body.middleware.js";
 import { AccessLogStream, Logger } from "./common/utils/logger.js";
 import { APP_CONFIG } from "./infrastruture/configs/index.js";
-import RedisClient from "./infrastruture/connections/redis.js";
-import { SocketServer } from "./infrastruture/socket-server/index.js";
-import { router as apiRouter } from "./routes/index.js";
-import { router as ticketRouter } from "./routes/tickets.js";
+import { RedisClient } from "./infrastruture/connections/redis.js";
+import { rootRouter, ticketRouter } from "./routes/index.js";
+import { SocketServer } from "./socket-server/server.js";
 
 env.TZ = "Asia/Ho_Chi_Minh";
 
@@ -50,7 +49,7 @@ app.get("/favicon.ico", (req, res) => res.status(204).end());
 
 // handle API route here
 app.use("/v1", ticketRouter);
-app.use(apiRouter);
+app.use(rootRouter);
 
 // 404
 app.use(function (req, res, next) {

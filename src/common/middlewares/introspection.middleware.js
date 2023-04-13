@@ -38,6 +38,9 @@ export function introspectionMiddleware() {
                     throw new UnauthorizedException("Token is missing or invalid", RESPONSE_CODE.missingToken);
                 }
 
+                // attach user to req
+                req.userinfo = { identifier: data.sub };
+
                 Logger.info("--------- Introspection Middleware - Passed");
 
                 next();
