@@ -26,9 +26,7 @@ function getRedisClient() {
     return clients.redisClient;
 }
 
-const RedisClient = {
+export const RedisClient = {
     initRedisConnectionAsync,
     getRedisClient,
 };
-
-export default RedisClient;

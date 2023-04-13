@@ -1,5 +1,7 @@
 import { Server } from "socket.io";
-import { APP_CONFIG } from "../configs/index.js";
+import { APP_CONFIG } from "../infrastruture/configs/index.js";
+import { ticketAuthMiddlewareAsync } from "./common/middlewares/ticket-auth.middleware.js";
+import NamespaceRegistry from "./namespaces/index.js";
 
 export class SocketServer {
     io;
@@ -27,6 +29,8 @@ export class SocketServer {
                 origin: APP_CONFIG.socket.cors.origin,
             },
         });
+
+        this.#registerEvents();
     }
 
     /**
@@ -41,5 +45,13 @@ export class SocketServer {
             SocketServer.#isContructable = false;
         }
         return SocketServer.#instance;
+    }
+
+    #registerEvents() {
+        this.io.use(ticketAuthMiddlewareAsync);
+
+        NamespaceRegistry.forEach((namespace) => {
+            this.io.of(namespace.namespace).on("connection", (socket) => namespace.handler(this.io, socket));
+        });
     }
 }
