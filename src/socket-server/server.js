@@ -48,10 +48,11 @@ export class SocketServer {
     }
 
     #registerEvents() {
-        this.io.use(ticketAuthMiddlewareAsync);
-
         NamespaceRegistry.forEach((namespace) => {
-            this.io.of(namespace.namespace).on("connection", (socket) => namespace.handler(this.io, socket));
+            this.io
+                .of(namespace.namespace)
+                .use((socket, next) => ticketAuthMiddlewareAsync(namespace.namespace, socket, next))
+                .on("connection", (socket) => namespace.handler(this.io, socket));
         });
     }
 }
