@@ -31,6 +31,23 @@ export const APP_CONFIG = {
         host: process.env.REDIS_HOST,
         port: process.env.REDIS_PORT ? +process.env.REDIS_PORT : 6378,
     },
+
+    rabbitmq: {
+        uri: process.env.RABBITMQ_URI || "",
+        exchange: {
+            name: process.env.RABBITMQ_EXCHANGE_NAME || "",
+        },
+
+        queues: {
+            actionQueue: process.env.RABBITMQ_PRESENTATION_ACTION_QUEUE || "",
+            votingQueue: process.env.RABBITMQ_PRESENTATION_VOTING_QUEUE || "",
+        },
+
+        topics: {
+            actionTopic: process.env.RABBITMQ_PRESENTATION_ACTION_TOPIC || "",
+            votingTopic: process.env.RABBITMQ_PRESENTATION_VOTING_TOPIC || "",
+        },
+    },
 };
 
 export const SERVICE_CONFIG_FACTORY = {

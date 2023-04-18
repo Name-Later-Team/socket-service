@@ -27,11 +27,13 @@ export function registerPresentationEvents(io, socket) {
     // join room
     socket.on("join-room", (roomId) => {
         Logger.info(PRESENTATION_NAMESPACE, { ...eventInfo, name: "join-room", roomId });
+        // TODO: join-room
     });
 
     // leave room
     socket.on("leave-room", (roomId) => {
         Logger.info(PRESENTATION_NAMESPACE, { ...eventInfo, name: "leave-room", roomId });
+        // TODO: leave-room
     });
 
     // Register others event here.
