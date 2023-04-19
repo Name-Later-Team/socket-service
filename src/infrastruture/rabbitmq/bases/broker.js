@@ -1,6 +1,7 @@
 import * as amqp from "amqplib";
 import crypto from "crypto";
 import { Logger } from "../../../common/utils/logger.js";
+import { APP_CONFIG } from "../../configs/index.js";
 
 export class RabbitMQBroker {
     /**
@@ -18,8 +19,7 @@ export class RabbitMQBroker {
     }
 
     async initConnectionAsync() {
-        this.connection = await amqp.connect("amqp://rabbitmq:rabbitmq1@localhost:5672");
-        // this.connection = await amqp.connect(APP_CONFIG.rabbitmq.uri);
+        this.connection = await amqp.connect(APP_CONFIG.rabbitmq.uri);
         this.channel = await this.connection.createChannel();
     }
 
