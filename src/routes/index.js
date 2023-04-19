@@ -11,6 +11,4 @@ rootRouter.get(
     }),
 );
 
-
-
 export * from "./tickets.js";

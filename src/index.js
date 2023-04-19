@@ -10,6 +10,7 @@ import { rawBodyMiddleware } from "./common/middlewares/raw-body.middleware.js";
 import { AccessLogStream, Logger } from "./common/utils/logger.js";
 import { APP_CONFIG } from "./infrastruture/configs/index.js";
 import { RedisClient } from "./infrastruture/connections/redis.js";
+import { registerSocketConsumers } from "./infrastruture/rabbitmq/consumers/index.js";
 import { rootRouter, ticketRouter } from "./routes/index.js";
 import { SocketServer } from "./socket-server/server.js";
 
@@ -70,3 +71,5 @@ SocketServer.getInstance(httpServer);
 
 // init redis cache connection
 RedisClient.initRedisConnectionAsync();
+
+registerSocketConsumers();

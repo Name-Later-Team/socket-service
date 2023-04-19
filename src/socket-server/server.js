@@ -5,6 +5,9 @@ import NamespaceRegistry from "./namespaces/index.js";
 
 export class SocketServer {
     io;
+    /**
+     * @type {SocketServer}
+     */
     static #instance;
 
     // to prevent public constructor
