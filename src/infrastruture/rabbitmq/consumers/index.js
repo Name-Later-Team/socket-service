@@ -20,13 +20,11 @@ const ConsumerRegistry = [
 ];
 
 export async function registerSocketConsumers() {
-    try {
-        ConsumerRegistry.forEach(({ exchange, bindingKey, queueName, handler }, index) => {
-            const brokerConsumer = new RabbitMQBroker(`${queueName} ${index + 1}`);
+    ConsumerRegistry.forEach(({ exchange, bindingKey, queueName, handler }, index) => {
+        const brokerConsumer = new RabbitMQBroker(`${queueName} ${index + 1}`);
 
-            brokerConsumer.subscribe({ exchange, bindingKey, queueName }, handler);
+        brokerConsumer.subscribe({ exchange, bindingKey, queueName }, handler).catch((error) => {
+            Logger.error("REGISTER CONSUMERS ERRORS", `${queueName} ${index + 1}`, error.message || error);
         });
-    } catch (error) {
-        Logger.error("REGISTER CONSUMERS ERRORS", error);
-    }
+    });
 }

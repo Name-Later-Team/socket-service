@@ -67,7 +67,7 @@ httpServer.listen(PORT, () => {
 });
 
 // init socket server
-SocketServer.getInstance(httpServer, "app");
+SocketServer.getInstance(httpServer);
 
 // init redis cache connection
 RedisClient.initRedisConnectionAsync();

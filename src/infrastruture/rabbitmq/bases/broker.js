@@ -1,7 +1,6 @@
 import * as amqp from "amqplib";
 import crypto from "crypto";
 import { Logger } from "../../../common/utils/logger.js";
-import { APP_CONFIG } from "../../configs/index.js";
 
 export class RabbitMQBroker {
     /**
@@ -19,7 +18,8 @@ export class RabbitMQBroker {
     }
 
     async initConnectionAsync() {
-        this.connection = await amqp.connect(APP_CONFIG.rabbitmq.uri);
+        this.connection = await amqp.connect("amqp://rabbitmq:rabbitmq1@localhost:5672");
+        // this.connection = await amqp.connect(APP_CONFIG.rabbitmq.uri);
         this.channel = await this.connection.createChannel();
     }
 
@@ -60,12 +60,12 @@ export class RabbitMQBroker {
             { noAck: true },
         );
 
-        this.connection.on("error", (err) => {
-            Logger.error(this.name, "Connection error");
-            Logger.error(err);
+        // this.connection.on("error", (err) => {
+        //     Logger.error(this.name, "Connection error");
+        //     Logger.error(err);
 
-            setTimeout(this.initConnectionAsync, 10000);
-        });
+        //     setTimeout(() => this.subscribe({ exchange, bindingKey, queueName }, handler), 1000);
+        // });
 
         this.connection.on("close", (reason) => {
             Logger.error(this.name, "Connection closed");
