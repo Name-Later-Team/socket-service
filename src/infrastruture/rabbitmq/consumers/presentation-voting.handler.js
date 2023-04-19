@@ -1,4 +1,6 @@
 import { Logger } from "../../../common/utils/logger.js";
+import { SocketServer } from "../../../socket-server/server.js";
+import NamespaceRegistry from "../../../socket-server/namespaces/index.js"
 
 /**
  * @param {import("amqplib").ConsumeMessage | null} message
@@ -7,7 +9,16 @@ import { Logger } from "../../../common/utils/logger.js";
 export async function handlePresentationVotingAsync(message, consumerName) {
     Logger.info("-----------------------", consumerName, " consumed -----------------------");
 
-    // handle message here
-    // get message and push to socket
-    // SocketServer.getInstance().io.of("name space").emit("event", data)
+    try {
+        const data = JSON.parse(message.content.toString());
+
+        if(data){
+            SocketServer.getInstance().io
+            .of(NamespaceRegistry[1].namespace)
+            .to(data.roomId)
+            .emit(data.eventName, data)
+        }
+    } catch {
+        Logger.error("Error on consume message",consumerName, message.content.toString());
+    }
 }
