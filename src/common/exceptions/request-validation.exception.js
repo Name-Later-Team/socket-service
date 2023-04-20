@@ -8,7 +8,7 @@ export class RequestValidationException extends BaseException {
      * @param errorDetails Validation error object description
      */
     constructor(message, errorDetails) {
-        super(HTTP_CODE.BAD_REQUEST, "Validation error", RESPONSE_CODE.VALIDATION_ERROR, {
+        super(HTTP_CODE.badRequest, "Validation error", RESPONSE_CODE.validationError, {
             error: message,
             errorDetails,
         });
