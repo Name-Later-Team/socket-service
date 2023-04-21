@@ -1,22 +1,23 @@
 export const HTTP_CODE = {
-    OK: 200,
-    BAD_REQUEST: 400,
-    CREATED: 201,
-    NO_CONTENT: 204,
-    UNAUTHORIZED: 401,
-    FORBIDDEN: 403,
-    NOT_FOUND: 404,
-    INTERNAL_SERVER_ERROR: 500,
+    ok: 200,
+    badRequest: 400,
+    created: 201,
+    noContent: 204,
+    unauthorized: 401,
+    forbidden: 403,
+    notFound: 404,
+    internalServerError: 500,
+    badGateway: 502,
 };
 
 export const RESPONSE_CODE = {
     // 400: BAD REQUEST
-    VALIDATION_ERROR: 4001,
+    validationError: 4001,
 
     // 401: UNAUTHORIZED
-    MISSING_TOKEN: 4011,
-    INVALID_SIGNATURE: 4013,
-    MISSING_RSA_AUTH_HEADER: 4014,
+    missingToken: 4011,
+    invalidSignature: 4013,
+    missingRsaAuthHeader: 4014,
 
     // 403: FORBIDDEN
 };

@@ -6,10 +6,13 @@ import http from "http";
 import morgan from "morgan";
 import { env } from "process";
 import { errorHandler } from "./common/middlewares/error.handler.js";
+import { rawBodyMiddleware } from "./common/middlewares/raw-body.middleware.js";
 import { AccessLogStream, Logger } from "./common/utils/logger.js";
 import { APP_CONFIG } from "./infrastruture/configs/index.js";
-import { router as apiRouter } from "./routes/index.js";
-import { SocketServer } from "./infrastruture/socket-server/index.js";
+import { RedisClient } from "./infrastruture/connections/redis.js";
+import { registerSocketConsumers } from "./infrastruture/rabbitmq/consumers/index.js";
+import { rootRouter, ticketRouter } from "./routes/index.js";
+import { SocketServer } from "./socket-server/server.js";
 
 env.TZ = "Asia/Ho_Chi_Minh";
 
@@ -18,6 +21,11 @@ const httpServer = http.createServer(app);
 
 app.use(compression());
 app.use(helmet());
+app.use(express.raw({ type: ["application/json+text"] }));
+
+// parse raw body for rsa signature
+app.use(rawBodyMiddleware);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -41,7 +49,8 @@ app.use(function (req, res, next) {
 app.get("/favicon.ico", (req, res) => res.status(204).end());
 
 // handle API route here
-app.use(apiRouter);
+app.use("/v1", ticketRouter);
+app.use(rootRouter);
 
 // 404
 app.use(function (req, res, next) {
@@ -59,3 +68,8 @@ httpServer.listen(PORT, () => {
 
 // init socket server
 SocketServer.getInstance(httpServer);
+
+// init redis cache connection
+RedisClient.initRedisConnectionAsync();
+
+registerSocketConsumers();

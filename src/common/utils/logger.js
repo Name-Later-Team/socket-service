@@ -13,8 +13,8 @@ import { APP_CONFIG } from "../../infrastruture/configs/index.js";
 const formatFunction = winston.format.printf(({ level, timestamp, ms, message, ...rest }) => {
 	const timestampString = moment(timestamp).toLocaleString();
 
-	const args = rest[Symbol.for("splat")];
-	const outMessage = [message, args].map(fastStringify.default).join(" ");
+	const args = rest[Symbol.for("splat")] || [];
+	const outMessage = [message, ...args].map(fastStringify.default).join(" ");
 
 	return `[${timestampString}] : [${level}] : ${outMessage} ${ms}`;
 });

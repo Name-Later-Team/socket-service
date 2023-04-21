@@ -30,9 +30,22 @@ export function errorHandler(error, request, response, next) {
     // handle error detaisl base on its name
     switch (error.name) {
         case "RequestValidationException":
+        case "BadGatewayException":
+            break;
+        case "UnauthorizedException":
+            status = 401;
+            responseError.code = status;
+            responseError.message = error.message;
+            outMessage = error.toString();
+            break;
+        case "RsaException":
+            status = 401;
+            responseError.code = status;
+            responseError.message = "Unauthorized";
+            outMessage = error;
             break;
         default:
-            outMessage = exception;
+            outMessage = error;
             break;
     }
 
