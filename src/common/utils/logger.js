@@ -34,7 +34,7 @@ if (APP_CONFIG.logDriver === "file") {
 		dirname: logDirectory,
 		datePattern: "YYYY-MM-DD",
 		maxSize: "20m",
-		maxFiles: "30d",
+		maxFiles: "7d",
 	});
 	logTransports.push(FileTransport);
 }
