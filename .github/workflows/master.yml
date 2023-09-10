@@ -87,12 +87,4 @@ jobs:
     needs: publish_to_registry
     steps:
       - name: Call depoy hook api
-        run: curl --request POST \
-                  --url https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys \
-                  --header 'accept: application/json' \
-                  --header 'content-type: application/json' \
-                  --data '
-                  {
-                    "clearCache": "clear"
-                  }
-                  '
+        run: curl "${{ secrets.DEPLOY_HOOK_URL }}"
