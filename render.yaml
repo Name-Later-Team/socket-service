@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: presento-socket
+    numInstances: 1
+    runtime: image
+    image:
+      url: docker.io/sehcmusgroup1/socket-service:latest
+
+    region: singapore
+    plan: free
+    autoDeploy: false
